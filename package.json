@@ -1,0 +1,32 @@
+{
+  "name": "kinda-like",
+  "version": "1.0.0",
+  "description": "a trivia game ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/respir1/kinda-like.git"
+  },
+  "keywords": [
+    "game"
+  ],
+  "author": "Rose",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/respir1/kinda-like/issues"
+  },
+  "homepage": "https://github.com/respir1/kinda-like#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.4",
+    "heroku-cli": "^6.13.10",
+    "path": "^0.12.7"
+  }
+}

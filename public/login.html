@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>kinda-like</title>
+    <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js'></script>
+
+      <style>
+        body {
+          background-color: purple;
+        }
+      </style>  
+
+  </head>
+<body>
+
+  <script>
+    function statusChangeCallback(response) {
+      console.log('statusChangeCallback');
+      if (response.status === 'connected') {
+        console.log(response.authResponse.accessToken, 'auth token');
+        localStorage.setItem('jwt', response.authResponse.accessToken);
+        fbAPI();
+      } else {
+        console.log('did not successfully log in')
+        document.getElementById('status').innerHTML = 'Please log ' +
+          'into this app.';
+      }
+    }
+    function checkLoginState() {
+      FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+      });
+    }
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '126466681308237',
+        cookie     : true,  
+        xfbml      : true,  
+        version    : 'v2.8' 
+      });
+      FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+      });
+    };
+
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    function fbAPI() {
+      console.log('Welcome!  Fetching your information.... ');
+      FB.api('/me', { fields: 'id,name,email,picture' },function(response) {
+        let userData = {
+          name: response.name,
+          email: response.email,
+          picture: response.picture.data.url
+        }
+
+        $.ajax({
+          type: "POST",
+          url: '/login',
+          data: userData,
+          header: {
+            'Content-Type': 'application/json',
+          },
+        }).done((result) => {
+          console.log('Successful login for ' + response.name);
+          window.location.href = "/home";
+        }).fail((err) => {
+          console.error('ERROR', err);
+        })
+      });
+    }
+  </script>
+
+<br />
+  <div class="container-fluid">  
+    <div style="color:teal; background-color: aqua; padding: 20px; margin-top: 10%; border-radius: 25px; box-shadow: 0 8px 16px 0;"> 
+      <div class="row">
+        <img src="https://i.imgur.com/WfGXlE9.png" alt="logo" style="width:100%">
+      </div>  
+  
+      <div class="row">  
+          <center><div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true"></div></center>
+      </div>
+
+      <div class="row">
+        <div id="status"></div>
+      </div>  
+    </div>
+
+
+</body>
+</html>

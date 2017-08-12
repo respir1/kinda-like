@@ -14,7 +14,6 @@
       </style>  
   </head>
   <body>
-
     <script>
       function statusChangeCallback(response) {
         console.log('statusChangeCallback');
@@ -62,14 +61,16 @@
           }
           $.ajax({
             type: 'POST',
-            url: '/login',
+            url: '/users',
             data: userData,
             header: {
               'Content-Type': 'application/json',
             },
           }).done((result) => {
-            console.log('Successful Facebook login for ' + response.name);
-                window.location.href = "/home";
+            console.log(result);
+            console.log(result._id);
+            localStorage.setItem('userId', result._id);
+            window.location.href = "/home";
           }).fail((err) => {
             console.error('ERROR', err);
           })
@@ -79,7 +80,6 @@
       function onSignIn(googleUser) {
         var jwtToken = googleUser.getAuthResponse().id_token;
         localStorage.setItem('jwt', jwtToken);
-        window.location.href = '/home';
         console.log(jwtToken, 'Google jwtToken');
         let profile = googleUser.getBasicProfile();
           let userData = {
@@ -89,35 +89,38 @@
           }
         $.ajax({
           type: 'POST',
-          url: '/login',
+          url: '/users',
           data: userData,
           header: {
             'Content-Type': 'application/json'
           },
         }).done((result) => {
+          window.location.href = '/home';
+          console.log(result._id);
+          localStorage.setItem('userId', result._id);
           console.log('successful Google login')
         }).fail((err) => {
           console.error('Error', err);
         })  
       }
     </script>
-
     <div class="container-fluid">  
       <div style="color:teal; background-color: aqua; padding: 20px; margin-top: 10%; border-radius: 25px; box-shadow: 0 8px 16px 0;"> 
         <div class="row">
           <img src="https://i.imgur.com/WfGXlE9.png" alt="logo" style="width:100%">
         </div>  
-        <div class="row">  
-          <div style="width:80%">
-            <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true"></div>
-            <center><div id="status"></div></center>
-          </div>  
-        </div>
         <div class="row">
-          <div style="width:80%">
+          <div style="width:100%">
             <center><div class="g-signin2" data-onsuccess="onSignIn"></div></center>
           </div>  
         </div>  
+        <br />
+        <div class="row">  
+          <div style="width:100%">
+            <center><div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true"></div></center>
+            <center><div id="status"></div></center>
+          </div>  
+        </div>
     </div>
   </body>
 </html>

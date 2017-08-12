@@ -1,4 +1,4 @@
-<div="container fluid" ng-app="gameApp" ng-controller="searchCtrl">
+<div="container fluid" ng-app="gameApp" ng-controller="gameCtrl">
   <div="row">  
     <div style="background-color: aqua; padding: 20px; margin: 10px 10px 10px 10px; border-radius: 25px;">
       <input type="text" name="search" placeholder="Search.." ng-model="searchTerm">
@@ -6,3 +6,8 @@
     </div>
   </div>
 </div>  
+
+<div="container fluid">
+  <li ng-repeat="game in ctrl.gameList">
+    {{game.Name}}
+</div>

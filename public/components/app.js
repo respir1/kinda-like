@@ -1,18 +1,22 @@
 const gameApp = angular.module('gameApp', [])
-  .controller('searchCtrl', ['searchSvs', function searchCtrl(searchSvs) {
+  .controller('gameCtrl', ['searchSvs', function searchCtrl(searchSvs) {
     this.searchTerm = '';
-    this.getSearch = (search) => {
-      this.searchTerm = search;
-      console.log(this.searchTerm);
-      searchSvs.fetchSearch(this.searchTerm);
+    this.gameList = '';
+    this.getResults = (data) => {
+      this.gameList = data;
+      console.log(this.gameList, 'gameList');
+    }
+    this.getSearch = (searchTerm) => {
+      console.log(searchTerm, 'search term');
+      searchSvs.fetchSearch(searchTerm, this.getResults);
     };
   }])
-  .directive('search', () => {
+  .directive('game', () => {
     return {
       scope: {},
-      controller: 'searchCtrl',
+      controller: 'gameCtrl',
       controllerAs: 'ctrl',
       bindToController: true,
-      templateUrl: 'components/search.html',
+      templateUrl: 'components/game.html',
     };
   });

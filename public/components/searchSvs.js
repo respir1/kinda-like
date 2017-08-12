@@ -1,13 +1,14 @@
 angular.module('gameApp')
-  .service('searchSvs', ($http) => {
-    this.fetchSearch = (searchTerm) => {
+  .service('searchSvs', function ($http) {
+    this.fetchSearch = ((searchTerm, cb) => {
       $http.post('/search', { searchTerm })
-        .then(({ data }) => {
-        console.log(data, 'api result');
-            // cb(data);
-        }, (err) => {
-        console.error(err);
-      });
-    };
-  });
+        .then(function success({ data }){
+            if(cb){
+              cb(data);
+            }
+          }, function error(err){
+              console.error(err);
+          });
+        });
+    });
 

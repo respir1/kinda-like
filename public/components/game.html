@@ -8,6 +8,13 @@
 </div>  
 
 <div="container fluid">
+  <ul>
   <li ng-repeat="game in ctrl.gameList">
-    {{game.Name}}
+    <div class="game-title" ng-click="ctrl.ansRight(game)">{{game.Name}}</div>
+</div>
+  </ul>
+  
+
+<div>
+  <button type="button" ng-click="ctrl.submitScore()"> Done </button>
 </div>

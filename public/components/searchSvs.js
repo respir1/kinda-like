@@ -6,9 +6,20 @@ angular.module('gameApp')
             if(cb){
               cb(data);
             }
-          }, function error(err){
-              console.error(err);
-          });
+          }, (err) => {
+          console.error(err);
         });
     });
+
+      this.postScore = (scoreData) => {
+        console.log(scoreData, 'in service')
+        $http.post('/scores', scoreData)
+          .then((data) => {
+            console.log(data);
+          }, (err) => {
+            console.error(err);
+          })
+      }
+
+  });
 

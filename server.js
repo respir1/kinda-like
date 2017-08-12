@@ -35,9 +35,9 @@ const Users = new Schema({
 });
 
 const Scores = new Schema({
-  // user: Users.ObjectId, 
-  card: String,
+  userId: String,
   score: Number,
+  gameTitle: String,
 });
 
 const User = mongoose.model('user', Users);
@@ -77,6 +77,16 @@ app.post('/users', (req, res) => {
 
 app.post('/scores', (req, res) => {
   console.log(req.body);
+  new Score({
+    userId: req.body.userId,
+    score: req.body.score,
+    gameTitle: req.body.gameTitle,
+  }).save((err) => {
+    if(err){
+      console.log(err);
+    }
+    res.send('score saved')
+  })
 });
 
 app.get('/scores', (req, res) => {

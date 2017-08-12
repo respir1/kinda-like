@@ -28,7 +28,8 @@
     "express": "^4.15.4",
     "heroku-cli": "^6.13.10",
     "mongoose": "^4.11.6",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "request": "^2.81.0"
   },
   "devDependencies": {
     "eslint": "^4.4.1",

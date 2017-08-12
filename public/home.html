@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="gameApp">
   <head>
     <title>kinda-like</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google-signin-client_id" content="448974510430-l6u11u2l1uvo2p3sva3l7lbni4kd945u.apps.googleusercontent.com">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
+    
     <style>
       body {
         background-color: purple;
@@ -50,15 +52,16 @@
             gapi.auth2.init();
           });
         }
-
         function logOutFB(){
           function statusChangeCallback(response) {
             console.log('statusChangeCallback');
             if (response.status === 'connected') {
-              console.log(response.authResponse.accessToken, 'FB auth token');
-                FB.logout();
+                FB.logout(function(response){
+                  console.log(response.status)
+                  window.location.href = '/';
+                });
             } else {
-              window.location.href = '/';
+              console.log(response.status)
               console.log('did not successfully log in')
             }
           }
@@ -74,7 +77,6 @@
             version    : 'v2.8' 
           });
         };
-
         (function(d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0];
           if (d.getElementById(id)) return;
@@ -82,7 +84,6 @@
           js.src = "//connect.facebook.net/en_US/sdk.js";
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
-
         function signOut() {
           localStorage.removeItem('jwt')
           logOutFB();
@@ -91,7 +92,6 @@
             console.log('User signed out.');
             window.location.href = "/";
           });
-
         }   
       </script>
 
@@ -99,10 +99,12 @@
         <a href="#" onclick="signOut();" style="color:teal">Sign out</a>
       <div>  
 
-    <!-- <app ng-app="gameApp"></app> 
-    <search></search>  -->
-
+      <div>  
+      <search></search>
+      </div>
+   
     <script src="https://apis.google.com/js/platform.js" async defer></script>  
-    <!-- <script src="./app/app.js"></script> -->
+    <script type="text/javascript" src="components/app.js"></script> 
+    <script type="text/javascript" src="components/searchSvs.js"></script>
   </body>
 </html>

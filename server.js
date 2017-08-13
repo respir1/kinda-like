@@ -43,12 +43,12 @@ const Scores = new Schema({
 const User = mongoose.model('user', Users);
 const Score = mongoose.model('score', Scores);
 
-app.get('/home', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/home.html'));
-});
-
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/login.html'));
+});
+
+app.get('/home', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/home.html'));
 });
 
 app.post('/users', (req, res) => {
@@ -81,22 +81,16 @@ app.post('/scores', (req, res) => {
     userId: req.body.userId,
     score: req.body.score,
     gameTitle: req.body.gameTitle,
-  }).save((err) => {
-    if(err){
+  }).save((err, score) => {
+    if (err) {
       console.log(err);
     }
-    res.send('score saved')
-  })
-});
-
-app.get('/scores', (req, res) => {
-  Score.find((err, scores) => {
-    if (err) { console.error(err); }
-    res.send(scores);
+    res.send(score);
   });
 });
 
-app.get('/scores/:userId', (req, res) => {
+app.get('/scores', (req, res) => {
+  console.log(req);
   Score.find({ user: req }, (err, scores) => {
     if (err) { console.error(err); }
     res.send(scores);

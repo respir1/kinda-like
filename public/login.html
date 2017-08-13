@@ -9,8 +9,19 @@
       <meta name="google-signin-client_id" content="448974510430-l6u11u2l1uvo2p3sva3l7lbni4kd945u.apps.googleusercontent.com">
       <style>
         body {
-          background-color: purple;
+          background-color:black;
         }
+        
+        .page-footer {
+          background-color: white;
+          bottom: 0;
+          width: 100%;
+          position: absolute;
+        }
+        .loginBtn {
+          display: inline;
+        }
+      
       </style>  
   </head>
   <body>
@@ -103,24 +114,27 @@
           console.error('Error', err);
         })  
       }
-    </script>
-    <div class="container-fluid">  
-      <div style="color:teal; background-color: aqua; padding: 20px; margin-top: 10%; border-radius: 25px; box-shadow: 0 8px 16px 0;"> 
-        <div class="row">
-          <img src="https://i.imgur.com/WfGXlE9.png" alt="logo" style="width:100%">
-        </div>  
-        <div class="row">
-          <div style="width:100%">
-            <center><div class="g-signin2" data-onsuccess="onSignIn"></div></center>
-          </div>  
-        </div>  
-        <br />
-        <div class="row">  
-          <div style="width:100%">
-            <center><div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true"></div></center>
-            <center><div id="status"></div></center>
-          </div>  
-        </div>
+</script>
+    <div class="container-fluid">
+      <div class ="row">
+      <div style="color:aqua; background-color:black; padding: 20px; margin-top: 10%; border-radius: 70px; box-shadow: 8px 8px 16px 16px;">
+        <img src="https://i.imgur.com/0mHBzW3.png" alt="logo" style="width:100%">
+      </div>
+      </div>
     </div>
+        <footer class="page-footer">
+          <div class="container">
+              </div class="loginBtn">
+                <div style="float: left;">
+                  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                </div>
+                <div style="float: right;">  
+                  <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true"></div>
+                  <div id="status"></div>
+                </div>
+              </div>
+          </div>    
+        </footer>
+            
   </body>
 </html>

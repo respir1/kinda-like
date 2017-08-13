@@ -1,5 +1,5 @@
 const gameApp = angular.module('gameApp', [])
-  .controller('gameCtrl', ['searchSvs', function searchCtrl(searchSvs, $window) {
+  .controller('gameCtrl', ['gameSvs', function gameCtrl(gameSvs) {
     this.searchTerm = '';
     this.gameList = '';
     this.counter = 0;
@@ -11,7 +11,7 @@ const gameApp = angular.module('gameApp', [])
     this.getSearch = (searchTerm) => {
       console.log(searchTerm, 'search term');
       this.searchTerm = searchTerm;
-      searchSvs.fetchSearch(searchTerm, this.getResults);
+      gameSvs.fetchSearch(searchTerm, this.getResults);
     };
     this.ansRight = (e) => {
       this.counter += 1;
@@ -23,7 +23,7 @@ const gameApp = angular.module('gameApp', [])
         gameTitle: this.searchTerm,
         userId: localStorage.getItem('userId'),
       };
-      searchSvs.postScore(scoreData);
+      gameSvs.postScore(scoreData);
     };
   }])
   .directive('game', () => {

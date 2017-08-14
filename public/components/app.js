@@ -17,7 +17,7 @@ const gameApp = angular.module('gameApp', [])
           setTimeout(tick, 1000);
         } else {
           if (mins > 1) {
-            countdown(mins-1);           
+            this.countdown(mins-1);           
           }
         }
       }

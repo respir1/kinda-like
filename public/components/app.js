@@ -3,15 +3,33 @@ const gameApp = angular.module('gameApp', [])
     this.searchTerm = '';
     this.gameList = '';
     this.counter = 0;
-    this.userID = 0;
-    this.seconds = 47;
+    this.userID = localStorage.getItem('userId');
     this.lastScore = '';
-    this.startTimer = () => {}
+    this.countdown = (minutes) => {
+      var seconds = 120;
+      var mins = minutes
+      function tick() {
+        const counter = document.getElementById("counter");
+        const current_minutes = mins-1
+        seconds--;
+        counter.innerHTML = "TIMER:" + (seconds < 10 ? "0" : "") + String(seconds);
+        if( seconds > 0 ) {
+            setTimeout(tick, 1000);
+        } else {
+            if(mins > 1){
+                countdown(mins-1);           
+            }
+        }
+      }
+      tick();
+    }
+
     this.getResults = (data) => {
       data.map((media) => {  media.score = 0; } );
       this.gameList = data;
       console.log(this.gameList, 'gameList');
       // setInterval(this.startTimer, 1000);
+      this.countdown();
     };
     this.getSearch = (searchTerm) => {
       console.log(searchTerm, 'search term');
@@ -26,23 +44,23 @@ const gameApp = angular.module('gameApp', [])
     };
     this.playNewGame = () => {
       document.getElementById('myModal').style.display = 'none';
+      this.searchTerm = '';
+      this.gameList = '';
     };
     this.goToLastGame = () => {
       document.getElementById('myModal').style.display = 'none';
-      this.searchTerm = '';
-      this.gameList = '';
     };
 
     this.getLastScore = (lastGame) => {
       this.lastScore = lastGame;
       console.log(this.lastScore, 'recent score');
     };
-    this.submitScore = (e) => {
+    this.submitScore = () => {
       document.getElementById('myModal').style.display = 'block';
       const scoreData = {
-        score: this.counter * 10,
+        score: this.counter * 5,
         gameTitle: this.searchTerm,
-        userId: localStorage.getItem('userId'),
+        userId: this.userID,
       };
       gameSvs.postScore(scoreData, this.getLastScore.bind(this));
       this.counter = 0;

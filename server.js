@@ -91,7 +91,7 @@ app.post('/scores', (req, res) => {
 });
 
 app.get('/scores', (req, res) => {
-  Score.find(req.query).limit(10).sort({ date: -1 }).exec((err, scores) => {
+  Score.find(req.query).limit(5).sort({ date: -1 }).exec((err, scores) => {
     if (err) {
       console.error(err);
     }

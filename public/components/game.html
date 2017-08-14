@@ -1,4 +1,4 @@
-<div="container" ng-app="gameApp" ng-controller="gameCtrl">
+<div="container-fluid" ng-app="gameApp" ng-controller="gameCtrl">
   <center><a style="color:aqua" ng-hide="ctrl.gameList">Enter a movie, song, or movie to start playing</a></center>
   <div="row">  
     <div style="background-color: aqua; padding: 20px;">
@@ -14,7 +14,7 @@
   </div>
 </div> 
 
-<div="container" ng-show="ctrl.gameList">
+<div="container-fluid" ng-show="ctrl.gameList">
   <div class="row">  
     <div style="background-color: #E633FF; padding: 5px; margin: 10px 10px 10px 10px; color:white; position:relative; text-align: center;">
         <h3>SCORE: {{ctrl.counter}}</h3> 

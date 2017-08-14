@@ -17,7 +17,8 @@
 <div="container" ng-show="ctrl.gameList">
   <div class="row">  
     <div style="background-color: #E633FF; padding: 5px; margin: 10px 10px 10px 10px; color:white; position:relative; text-align: center;">
-        <h3>SCORE: {{ctrl.counter}}</h3> <h3> TIMER: {{ctrl.seconds}} seconds </h3>  
+        <h3>SCORE: {{ctrl.counter}}</h3> 
+        <h3><div id="counter"></div></h3>
       <button type="button" ng-click="ctrl.submitScore()" style="background-color: black;color:white;">submit score</button> 
     </div>  
       <div id="myModal" class="modal">

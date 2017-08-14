@@ -4,14 +4,32 @@ const gameApp = angular.module('gameApp', [])
     this.gameList = '';
     this.counter = 0;
     this.userID = localStorage.getItem('userId');
-    this.seconds = 47;
     this.lastScore = '';
-    this.startTimer = () => {}
+    this.countdown = (minutes) => {
+      var seconds = 120;
+      var mins = minutes
+      function tick() {
+        const counter = document.getElementById("counter");
+        const current_minutes = mins-1
+        seconds--;
+        counter.innerHTML = "TIMER:" + (seconds < 10 ? "0" : "") + String(seconds);
+        if( seconds > 0 ) {
+            setTimeout(tick, 1000);
+        } else {
+            if(mins > 1){
+                countdown(mins-1);           
+            }
+        }
+      }
+      tick();
+    }
+
     this.getResults = (data) => {
       data.map((media) => {  media.score = 0; } );
       this.gameList = data;
       console.log(this.gameList, 'gameList');
       // setInterval(this.startTimer, 1000);
+      this.countdown();
     };
     this.getSearch = (searchTerm) => {
       console.log(searchTerm, 'search term');

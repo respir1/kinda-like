@@ -2,28 +2,34 @@
   <center><a style="color:aqua" ng-hide="ctrl.gameList">Enter a movie, song, or movie to start playing</a></center>
   <div="row">  
     <div style="background-color: aqua; padding: 20px;">
-      <input type="text" name="search" placeholder="it's kinda like this book, song, or movie..." ng-model="searchTerm">
+      <input type="text" name="search" placeholder="it's kinda like this..." ng-model="searchTerm">
       <button type="button" ng-click="ctrl.getSearch(searchTerm)"style="background-color:yellow; border: none; box-shadow:10px; width: 50px;"> Enter </button>
     </div>
   </div>
 </div>  
 
-<score ng-hide="ctrl.gameList"></score>
+<div class="container" ng-hide="ctrl.gameList">
+  <div style="background-color:#A8FF33; padding: 20px; margin-top: 10%"> 
+    <score></score>
+  </div>
+</div> 
 
 <div="container" ng-show="ctrl.gameList">
   <div class="row">  
     <div style="background-color: #E633FF; padding: 5px; margin: 10px 10px 10px 10px; color:white; position:relative; text-align: center;">
         <h3>SCORE: {{ctrl.counter}}</h3> <h3> TIMER: {{ctrl.seconds}} seconds </h3>  
-        <!-- <div id="timer"></div> -->
-      <button type="button" ng-click="ctrl.submitScore()" style="background-color: black;color:white; float:right">submit score</button> 
+      <button type="button" ng-click="ctrl.submitScore()" style="background-color: black;color:white;">submit score</button> 
+    </div>  
       <div id="myModal" class="modal">
         <div class="modal-content">
-          <div style="color:red">
-            <span class="close" ng-click="ctrl.closeModal()">&times;</span>
-            <p>You scored a {{ctrl.lastScore.score}}</p>
-            <p> on the game {{ctrl.lastScore.gameTitle}}</p>
-            <p>Play Again</p>
-            <p>Return to last game</p>
+          <div style="color:black">
+              <span class="close" ng-click="ctrl.goToLastGame()">&times;</span>
+              <h2>You scored a <b style="color: #F633FF">{{ctrl.lastScore.score}}</b></h2>
+            <div style="float: lefft; background-color:aqua">
+              <button type="button" ng-click="ctrl.playNewGame()">Play Again</button>
+            <div style="float: right; background-color:aqua">
+              <button type="button" ng-click="ctrl.goToLastGame()">Return to Last Game</button>
+            </div>  
           </div>  
         </div>     
     </div> 

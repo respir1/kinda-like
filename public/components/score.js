@@ -3,6 +3,9 @@ angular.module('gameApp')
     this.userId = localStorage.getItem('userId');
     this.playerScores = '';
     this.getPlayerScores = (data) => {
+      data.map((score) => {
+        score.gameTitle = score.gameTitle.toUpperCase().slice(0, 1) + score.gameTitle.slice(1);
+      });
       this.playerScores = data;
       console.log(this.playerScores, 'player scores');
     }
@@ -14,6 +17,9 @@ angular.module('gameApp')
       controller: 'scoreCtrl',
       controllerAs: 'ctrl',
       bindToController: true,
-      templateUrl: 'components/score.html',
+      template:
+        `<ul class="list-group" ng-repeat="score in ctrl.playerScores" style="background-color: white">
+          <a href="#" class="list-group-item">GAME: <b>{{score.gameTitle}}</b><span style="float:right">SCORE: <b>{{score.score}}</b></span></a>
+        </ul> `
     };
   });

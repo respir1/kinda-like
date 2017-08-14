@@ -3,7 +3,7 @@ const gameApp = angular.module('gameApp', [])
     this.searchTerm = '';
     this.gameList = '';
     this.counter = 0;
-    this.userID = 0;
+    this.userID = localStorage.getItem('userId');
     this.seconds = 47;
     this.lastScore = '';
     this.startTimer = () => {}
@@ -26,23 +26,23 @@ const gameApp = angular.module('gameApp', [])
     };
     this.playNewGame = () => {
       document.getElementById('myModal').style.display = 'none';
+      this.searchTerm = '';
+      this.gameList = '';
     };
     this.goToLastGame = () => {
       document.getElementById('myModal').style.display = 'none';
-      this.searchTerm = '';
-      this.gameList = '';
     };
 
     this.getLastScore = (lastGame) => {
       this.lastScore = lastGame;
       console.log(this.lastScore, 'recent score');
     };
-    this.submitScore = (e) => {
+    this.submitScore = () => {
       document.getElementById('myModal').style.display = 'block';
       const scoreData = {
-        score: this.counter * 10,
+        score: this.counter * 5,
         gameTitle: this.searchTerm,
-        userId: localStorage.getItem('userId'),
+        userId: this.userID,
       };
       gameSvs.postScore(scoreData, this.getLastScore.bind(this));
       this.counter = 0;

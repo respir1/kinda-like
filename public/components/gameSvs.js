@@ -10,21 +10,21 @@ gameApp.service('gameSvs', function ($http) {
         });
     });
 
-    this.postScore = (scoreData) => {
+    this.postScore = (scoreData, cb) => {
       console.log(scoreData, 'in service')
       $http.post('/scores', scoreData)
         .then(({ data }) => {
-          console.log(data);
+          cb(data);
         }, (err) => {
         console.error(err);
         });
     }
 
-    this.getScore = (userID) => {
+    this.getScore = (userID, cb) => {
       $http.get('/scores', {
         params: { userId: userID },
-      }).then((data) => {
-        console.log(data);
+      }).then(({ data }) => {
+        cb(data);
       }, (err) => {
         console.error(err);
       });

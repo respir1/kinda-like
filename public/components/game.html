@@ -1,32 +1,40 @@
-<div="container fluid" ng-app="gameApp" ng-controller="gameCtrl">
+<div="container" ng-app="gameApp" ng-controller="gameCtrl">
+  <center><a style="color:aqua" ng-hide="ctrl.gameList">Enter a movie, song, or movie to start playing</a></center>
   <div="row">  
-    <div style="background-color: aqua; padding: 20px; margin: 10px 10px 10px 10px; border-radius: 25px;">
-      <input type="text" name="search" placeholder="Search.." ng-model="searchTerm">
-      <button type="button" ng-click="ctrl.getSearch(searchTerm)"style="background-color:grey; border-radius: 10px;"> Submit </button>
+    <div style="background-color: aqua; padding: 20px;">
+      <input type="text" name="search" placeholder="it's kinda like this book, song, or movie..." ng-model="searchTerm">
+      <button type="button" ng-click="ctrl.getSearch(searchTerm)"style="background-color:yellow; border: none; box-shadow:10px; width: 50px;"> Enter </button>
     </div>
   </div>
 </div>  
 
-<div="container fluid">
-  <ul>
-  <li ng-repeat="game in ctrl.gameList">
-    <div class="game-title" ng-click="ctrl.ansRight(game)">{{game.Name}}</div>
-</div>
-  </ul>
+<score ng-hide="ctrl.gameList"></score>
 
-  <!-- Modal Trigger -->
-  <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+<div="container" ng-show="ctrl.gameList">
+  <div class="row">  
+    <div style="background-color: #E633FF; padding: 5px; margin: 10px 10px 10px 10px; color:white; position:relative; text-align: center;">
+        <h3>SCORE: {{ctrl.counter}}</h3> <h3> TIMER: {{ctrl.seconds}} seconds </h3>  
+        <!-- <div id="timer"></div> -->
+      <button type="button" ng-click="ctrl.submitScore()" style="background-color: black;color:white; float:right">submit score</button> 
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <div style="color:red">
+            <span class="close" ng-click="ctrl.closeModal()">&times;</span>
+            <p>You scored a {{ctrl.lastScore.score}}</p>
+            <p> on the game {{ctrl.lastScore.gameTitle}}</p>
+            <p>Play Again</p>
+            <p>Return to last game</p>
+          </div>  
+        </div>     
+    </div> 
+  </div>  
+</div>  
 
-  <!-- Modal Structure -->
-  <div id="modal1" class="modal">
-    <div class="modal-content">
-      <h4>Modal Header</h4>
-      <p>A bunch of text</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+  <div="container">
+    <div="row">
+        <li ng-repeat="game in ctrl.gameList">
+            <button class="list-group-item" ng-click="ctrl.ansRight(game)" id="{{game.Name}}">{{game.Name}} <span class="badge">{{game.score}}</span></button> 
+        </li> 
     </div>
   </div>
-          
-  <!-- <button type="button" ng-click="ctrl.submitScore()"> Done </button> -->
 </div>

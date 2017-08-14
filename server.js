@@ -38,6 +38,7 @@ const Scores = new Schema({
   userId: String,
   score: Number,
   gameTitle: String,
+  date: { type: Date, default: Date.now },
 });
 
 const User = mongoose.model('user', Users);
@@ -90,9 +91,11 @@ app.post('/scores', (req, res) => {
 });
 
 app.get('/scores', (req, res) => {
-  console.log(req);
-  Score.find({ user: req }, (err, scores) => {
-    if (err) { console.error(err); }
+  Score.find(req.query).limit(10).sort({ date: -1 }).exec((err, scores) => {
+    if (err) {
+      console.error(err);
+    }
+    console.log(scores, 'scores');
     res.send(scores);
   });
 });
@@ -101,7 +104,7 @@ app.post('/search', (req, res) => {
   console.log(req.body.searchTerm);
   request({
     method: 'GET',
-    uri:`https://tastedive.com/api/similar?q=${req.body.searchTerm}&k=${process.env.TASTE_DIVE_API}&limit=10`}, (err, response, body) => {
+    uri:`https://tastedive.com/api/similar?q=${req.body.searchTerm}&k=${process.env.TASTE_DIVE_API}&limit=20`}, (err, response, body) => {
     if (err) { 
       console.error(err);
     }

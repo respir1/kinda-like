@@ -3,9 +3,9 @@
 
 ## About Kinda-Like
 
-### Kinda-Like is the perfect app for game night! Users can test their knowledge of music, books, movies, and other media categories by listing as many titles that are similar to the input.  
+### Kinda-Like is the perfect app for game night! Users can test their knowledge of music, books, movies, and other media categories by listing as many names as possible that are similar to the category.  
 
-For example: list as many artists as possible similar to Beyonce or as many movie titles similar to The Godfather. Try you luck and see if how high you can score.
+For example: how many artists can you name that are kinda like Beyonce or movie titles kinda like The Godfather
 
 ## Kinda Like App
 ![img](https://i.imgur.com/1IzKw7h.png)
@@ -29,6 +29,5 @@ Used OAuth 2.0 protocol in conjunction with Google and Facebook to authenticate 
 ### Requirements
 
 To start app run:
-
 `npm install
 npm start`

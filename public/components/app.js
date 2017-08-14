@@ -6,13 +6,13 @@ const gameApp = angular.module('gameApp', [])
     this.userID = localStorage.getItem('userId');
     this.lastScore = '';
     this.countdown = (minutes) => {
-      var seconds = 120;
-      var mins = minutes
+      const seconds = 120;
+      const mins = minutes
       function tick() {
         const counter = document.getElementById("counter");
         const current_minutes = mins-1
         seconds--;
-        counter.innerHTML = "TIMER:" + (seconds < 10 ? "0" : "") + String(seconds);
+        counter.innerHTML = "TIMER: " + (seconds < 10 ? "0" : "") + String(seconds) + " seconds left";
         if( seconds > 0 ) {
             setTimeout(tick, 1000);
         } else {
@@ -28,13 +28,12 @@ const gameApp = angular.module('gameApp', [])
       data.map((media) => {  media.score = 0; } );
       this.gameList = data;
       console.log(this.gameList, 'gameList');
-      // setInterval(this.startTimer, 1000);
-      this.countdown();
     };
     this.getSearch = (searchTerm) => {
       console.log(searchTerm, 'search term');
       this.searchTerm = searchTerm;
       gameSvs.fetchSearch(searchTerm, this.getResults);
+      this.countdown();
     };
     this.ansRight = (e) => {
       this.counter += 1;

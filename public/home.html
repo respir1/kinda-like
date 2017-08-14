@@ -7,10 +7,12 @@
     <meta name="google-signin-client_id" content="448974510430-l6u11u2l1uvo2p3sva3l7lbni4kd945u.apps.googleusercontent.com">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">    
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <style>
       body {
-        background-color: purple;
+        background-color: black;
       }
       input[type=text] {
         box-sizing: border-box;
@@ -22,89 +24,131 @@
       input[type=text]:focus {
         width: 80%;
       } 
-      .button {
+      .nav-wrapper {
         background-color: black;
+        min-height: 70px;
       }
-      .navbar {
-        overflow: hidden;
-        background-color: yellow;
-        position: fixed; 
-        top: 0; 
-        width: 100%; 
+      .nav {
+        display: inline;
       }
-      .navbar a {
+      li {
+        float: left; 
+        list-style-type: none;
+      }
+      a:hover {
+        background-color: aqua;
+      }
+      .button:hover {
+        background-color: aqua; 
+        color: white;
+      }
+      .page-footer {
+        background-color: white;
+        bottom: 0;
+        width: 100%;
+        position: fixed;
+        min-height: 50px;
+      }
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+      .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+      }
+      .close {
+        color: #aaaaaa;
         float: right;
-        display: block;
-        color: #f2f2f2;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-        font-size: 17px;
-      }
+        font-size: 28px;
+        font-weight: bold;
+    }
     </style> 
   </head>
 
-    <body onload="onLoad()">
+  <body onload="onLoad()">
 
-      <script>
-        function onLoad() {
-          gapi.load('auth2', function() {
-            gapi.auth2.init();
-          });
-        }
-        function logOutFB(){
-          function statusChangeCallback(response) {
-            console.log('statusChangeCallback');
-            if (response.status === 'connected') {
-                FB.logout(function(response){
-                  console.log(response.status)
-                  window.location.href = '/';
-                });
-            } else {
-              console.log(response.status)
-              console.log('did not successfully log in')
-            }
+    <script>
+      function onLoad() {
+        gapi.load('auth2', function() {
+          gapi.auth2.init();
+        });
+      }
+      function logOutFB(){
+        function statusChangeCallback(response) {
+          console.log('statusChangeCallback');
+          if (response.status === 'connected') {
+              FB.logout(function(response){
+                console.log(response.status)
+                window.location.href = '/';
+              });
+          } else {
+            console.log(response.status)
+            console.log('did not successfully log in')
           }
-          FB.getLoginStatus(function(response) {
-            statusChangeCallback(response);
-          });
         }
-        window.fbAsyncInit = function() {
-          FB.init({
-            appId      : '126466681308237',
-            cookie     : true,  
-            xfbml      : true,  
-            version    : 'v2.8' 
-          });
-        };
-        (function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/en_US/sdk.js";
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-        function signOut() {
-          localStorage.removeItem('jwt')
-          logOutFB();
-          var auth2 = gapi.auth2.getAuthInstance();
-          auth2.signOut().then(function () {
-            console.log('User signed out.');
-            window.location.href = "/";
-          });
-        }   
-      </script>
+        FB.getLoginStatus(function(response) {
+          statusChangeCallback(response);
+        });
+      }
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '126466681308237',
+          cookie     : true,  
+          xfbml      : true,  
+          version    : 'v2.8' 
+        });
+      };
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+      function signOut() {
+        localStorage.removeItem('jwt')
+        logOutFB();
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+          console.log('User signed out.');
+          window.location.href = "/";
+        });
+      }   
+    </script>
 
-      <div class="navbar">
-        <a href="#" onclick="signOut();" style="color:teal">Sign out</a>
-      <div>  
+      <nav>
+        <div class="nav-wrapper">
+          <ul id="nav-mobile" class="nav">
+            <div style="float:left;">  
+              <img src="https://i.imgur.com/D4uOUJ2.png" style="width:100%">
+            </div>    
+          </ul>
+        </div>
+      </nav>
+      
+      <game></game>
 
-      <div>  
-      <search></search>
-      </div>
-   
+  </body>
+  
+  <footer class="page-footer">
+    <button onclick="signOut();" style="color:black; float:right; background-color:aqua; height:50px; border: none; box-shadow:15px;">Sign Out</button>
+  </footer>
+    
     <script src="https://apis.google.com/js/platform.js" async defer></script>  
     <script type="text/javascript" src="components/app.js"></script> 
-    <script type="text/javascript" src="components/searchSvs.js"></script>
-  </body>
+    <script type="text/javascript" src="components/gameSvs.js"></script>
+    <script type="text/javascript" src="components/score.js"></script>
 </html>
